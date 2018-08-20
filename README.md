@@ -1,2 +1,2 @@
 # SRClassifier
-Naive Bayes classification of service requests types.
+Naive Bayes classification of service requests types at National Instruments. 
