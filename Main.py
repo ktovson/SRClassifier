@@ -12,14 +12,15 @@ from sklearn.pipeline import make_pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn import metrics
+from sklearn.feature_extraction import text
 
 #file locations
-keywordsfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\SRData\Keywords.csv'
-keywordstringsfilelocation = r"C:\Users\ktovson\Desktop\SR Classifier Project\SRData\Keywordstrings.csv"
-rawtrainingfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\SRData\TrainingData.csv'
-trainingfilelocation = r"C:\Users\ktovson\Desktop\SR Classifier Project\SRData\EqualData.csv"
-testfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\SRData\TestData.csv'
-predictionresultsfile = r"C:\Users\ktovson\Desktop\SR Classifier Project\SRData\TESTvsPREDICT.csv"
+keywordsfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\Keywords\Keywords.csv'
+keywordstringsfilelocation = r"C:\Users\ktovson\Desktop\SR Classifier Project\Keywords\Keywordstrings.csv"
+rawtrainingfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\Data\TrainingDataFINAL.csv'
+trainingfilelocation = r"C:\Users\ktovson\Desktop\SR Classifier Project\Data\EqualData.csv"
+testfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\Data\TestDataFINAL.csv'
+predictionresultsfile = r"C:\Users\ktovson\Desktop\SR Classifier Project\Results\TESTvsPREDICT.csv"
 
 #define number of SRs per type
 threshold = 500
@@ -2720,8 +2721,11 @@ for i in range(len(SRTypeCounts)):
     else:
         pass
 
+#add stop words
+my_stop_words = text.ENGLISH_STOP_WORDS.union(["lv", "labview", "LabVIEW", "Labview", "NI MAX", "LV"])
+
 #create model
-model = make_pipeline(TfidfVectorizer(decode_error= 'ignore', stop_words='english'), MultinomialNB())
+model = make_pipeline(TfidfVectorizer(decode_error= 'ignore', stop_words= my_stop_words), MultinomialNB())
 classifier = model.fit(train_data, train_target)
 predicted = model.predict(test_data)
 
@@ -2731,7 +2735,7 @@ outputArray.append(["Actual SR Type", "Predicted"])
 for i in range(len(predicted)):
     outputArray.append([test_target[i], predicted[i]])
 
-
+#create results file
 with open(predictionresultsfile, mode='w+', newline='', encoding='utf-8') as CSVtoWrite:
     csvWriter = csv.writer(CSVtoWrite, delimiter=',')
     csvWriter.writerows(outputArray)
