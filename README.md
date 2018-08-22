@@ -9,3 +9,4 @@ Early on in the Applications Engineering department at National Instruments, I i
 -numpy
 -scipy
 -sklearn
+-beautifulsoup
