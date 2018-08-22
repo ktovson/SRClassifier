@@ -20,7 +20,7 @@ keywordstringsfilelocation = r"C:\Users\ktovson\Desktop\SR Classifier Project\Ke
 rawtrainingfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\Data\TrainingDataFINAL.csv'
 trainingfilelocation = r"C:\Users\ktovson\Desktop\SR Classifier Project\Data\EqualData.csv"
 testfilelocation = r'C:\Users\ktovson\Desktop\SR Classifier Project\Data\TestDataFINAL.csv'
-predictionresultsfile = r"C:\Users\ktovson\Desktop\SR Classifier Project\Results\TESTvsPREDICT.csv"
+predictionresultsfile = r"C:\Users\ktovson\Desktop\SR Classifier Project\Results\Results.csv"
 
 #define number of SRs per type
 threshold = 500
@@ -832,6 +832,7 @@ with open(rawtrainingfilelocation, encoding='utf-8', errors='ignore') as csvfile
         else:
             pass
 
+classes = []
 #create array of counts
 SRTypeCounts = np.array([
     CAN,
@@ -919,6 +920,13 @@ SRTypeCounts = np.array([
     WebUIBuilder,
     myRIO
 ])
+
+#create class array for analysis of keywords
+for i in range(len(SRTypeCounts)):
+    if SRTypeCounts[i] > 0:
+        classes.append(SRTypes[i])
+    else:
+        pass
 
 #categorize SR types by if they have sufficient data
 LowSRs = []
@@ -2722,23 +2730,35 @@ for i in range(len(SRTypeCounts)):
         pass
 
 #add stop words
-my_stop_words = text.ENGLISH_STOP_WORDS.union(["lv", "labview", "LabVIEW", "Labview", "NI MAX", "LV"])
+my_stop_words = text.ENGLISH_STOP_WORDS.union(["cost", "solution", "help", "question", "thanks", "please"])
 
 #create model
-model = make_pipeline(TfidfVectorizer(decode_error= 'ignore', stop_words= my_stop_words), MultinomialNB())
+vectorizer = TfidfVectorizer(decode_error= 'ignore', stop_words= my_stop_words)
+NB = MultinomialNB(fit_prior=True, alpha=1)
+model = make_pipeline(vectorizer, NB)
 classifier = model.fit(train_data, train_target)
 predicted = model.predict(test_data)
 
+#get features with highest coefficients for each type
+class_labels=NB.classes_
+print(class_labels)
+top_features = []
+feature_names = vectorizer.get_feature_names()
+for i, class_label in enumerate(classes):
+    top10 = np.argsort(NB.coef_[i])[-10:]
+    print("%s: %s" % (class_label,
+          " ".join(feature_names[j] for j in top10)))
+
 #write correct vs. predicted data to file
-outputArray = []
-outputArray.append(["Actual SR Type", "Predicted"])
+results = []
+results.append(["Actual SR Type", "Predicted", "Data"])
 for i in range(len(predicted)):
-    outputArray.append([test_target[i], predicted[i]])
+    results.append([test_target[i], predicted[i], test_data[i]])
 
 #create results file
 with open(predictionresultsfile, mode='w+', newline='', encoding='utf-8') as CSVtoWrite:
     csvWriter = csv.writer(CSVtoWrite, delimiter=',')
-    csvWriter.writerows(outputArray)
+    csvWriter.writerows(results)
 
 #determine accuracy of model
 print("Accuracy is " + str(accuracy_score(test_target, predicted)*100) + "%")
