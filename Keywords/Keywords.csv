@@ -2723,3 +2723,148 @@ NI-SWITCH Soft Front Panel,Switches
 MUX,Switches
 Expansion,Switches
 Multiplexer,Switches
+block diagram,LV
+front panel,LV
+context help,LV
+vi,LV
+vis,LV
+project,LV
+palette,LV
+function,LV
+build application,LV
+exe,LV
+executable,LV
+activex,LV
+for loop,LV
+while loop,LV
+case structure,LV
+event structure,LV
+in place element structure,LV
+formula node,LV
+diagram disable structure,LV
+shared variable,LV
+local variable,LV
+global variable,LV
+property node,LV
+invoke node,LV
+string,LV
+cluster,LV
+array,LV
+boolean,LV
+numeric,LV
+constant,LV
+control,LV
+indicator,LV
+write delimited spreadsheet,LV
+bundle by name,LV
+unbundle by name,LV
+concatenate,LV
+call by reference,LV
+open vi reference,LV
+asynchronous,LV
+build specification,LV
+application builder,LV
+app builder,LV
+report generation ,LV
+report gen toolkit,LV
+queue,LV
+notifier,LV
+datasocket,LV
+UDP,LV
+TCP,LV
+wait,LV
+timestamp,LV
+error,LV
+crash,LV
+file path,LV
+enum,LV
+waveform chart,LV
+waveform graph,LV
+intensity chart,LV
+intensity graph,LV
+xy graph,LV
+mixed signal graph,LV
+refnum,LV
+tab,LV
+table,LV
+matrix,LV
+LED,LV
+stop button,LV
+automation,LV
+event callback,LV
+example finder,LV
+dll,LV
+.dll,LV
+mass compile,LV
+.vi,LV
+runtime engine,LV
+RT engine,LV
+read delimited spreadsheet,LV
+labview,LV
+terminal,LV
+wire,LV
+state machine,LV
+functions ,LV
+controls,LV
+indicators,LV
+text,LV
+display,LV
+run,LV
+subvi,LV
+elements,LV
+execution,LV
+connector pane,LV
+typedef,LV
+type definition,LV
+shift register,LV
+error handling,LV
+highlight,LV
+log,LV
+producer consumer,LV
+tdms,LV
+build specification,LV
+shared library,LV
+race conditions,LV
+functional global,LV
+fgv,LV
+logger,LV
+logging,LV
+histogram,LV
+installer,LV
+parallel,LV
+install,LV
+download,LV
+serial number,LV
+activation,LV
+activate,LV
+code,LV
+RTE,LV
+permission,LV
+run-time,LV
+VI,LV
+stacked sequence,LV
+license manager,LV
+wired,LV
+dependencies,LV
+migrate,LV
+upgrade,LV
+call library function node,LV
+System Exec,LV
+compile,LV
+.NET,LV
+LV,LV
+slider,LV
+Packed project library,LV
+mouse,LV
+click,LV
+Increment,LV
+Standalone,LV
+Stand alone,LV
+Webserver,LV
+Web server,LV
+port,LV
+.llb,LV
+llb,LV
+icon,LV
+ring,LV
+menu,LV
